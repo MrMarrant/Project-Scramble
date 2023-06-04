@@ -24,8 +24,7 @@ function scramble.DropScramble(ply, isCommand)
         ent:Spawn()
         ent:Activate()
     elseif (isCommand) then
-        -- TODO : Gérer les traductions.
-        -- ply:ChatPrint(toucanlib.TranslateLanguage(LANGUAGE_scramble, "NotAllowedToDropScanner"))
+        ply:ChatPrint(scramble.TranslateLanguage(SCRAMBLE_LANG, "NotAllowedToDropScramble"))
     end
 end
 

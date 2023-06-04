@@ -55,5 +55,5 @@ end
 -- Impossible to pass net messages on the client side with the other events, so I end up doing this, no judgment please.
 hook.Add( "PlayerInitialSpawn", "PlayerInitialSpawn.LoadTableScramble", function(ply)
     scramble.GetTableClient(ply, "PlayersWearingScramble", SCRAMBLE_CONFIG.PlayersWearingScramble)
-    scramble.GetTableClient(ply, "PlayersStateScramble", AEGIS_CONFIG.PlayersStateScramble) 
+    scramble.GetTableClient(ply, "PlayersStateScramble", SCRAMBLE_CONFIG.PlayersStateScramble) 
 end)

@@ -18,8 +18,7 @@ function ENT:Use(ply)
 		ply:EmitSound("scramble/equip.mp3")
 		self:Remove()
 	else
-		-- TODO : Gérer les traductions.
-		--ply:ChatPrint(toucanlib.TranslateLanguage(LANGUAGE_AEGIS, "NotAllowedToTakeCure"))
+		ply:ChatPrint(scramble.TranslateLanguage(SCRAMBLE_LANG, "NotAllowedToTake"))
 	end
 end
 
