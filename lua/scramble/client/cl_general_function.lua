@@ -18,3 +18,8 @@ net.Receive(SCRAMBLE_CONFIG.SetTableClient, function ( )
         SCRAMBLE_CONFIG[var][ent:EntIndex()] = nil
     end
 end)
+
+hook.Add( "OnScreenSizeChanged", "OnScreenSizeChanged.Scramble_ScreenSizeChanged", function( oldWidth, oldHeight )
+    SCRAMBLE_CONFIG.ScrW = ScrW()
+    SCRAMBLE_CONFIG.ScrH = ScrH()
+end )

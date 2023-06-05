@@ -1,5 +1,6 @@
 SCRAMBLE_CONFIG.UpdateBoolClient = "SCRAMBLE_CONFIG.UpdateBoolClient"
 SCRAMBLE_CONFIG.SetTableClient = "SCRAMBLE_CONFIG.SetTableClient"
+SCRAMBLE_CONFIG.ScreenFadeNVG = "SCRAMBLE_CONFIG.ScreenFadeNVG"
 
 SCRAMBLE_CONFIG.ClassEntities = {}
 SCRAMBLE_CONFIG.ClassSwep = {}

@@ -11,10 +11,12 @@ function scramble.DropScramble(ply, isCommand)
             ply:StopSound( "scramble/activate.mp3" )
             ply:StopSound( "scramble/onprocess.wav" )
             ply:EmitSound("scramble/desactivate.mp3")
+            if (ply.scramble_NVGEnable and ply:Alive()) then scramble.ScreenFadeNVG(ply) end
         end
 
         scramble.UpdateBoolClient(ply, "scramble_Wear", false)
         scramble.UpdateBoolClient(ply, "scramble_State", false)
+        scramble.UpdateBoolClient(ply, "scramble_NVGEnable", false)
         scramble.SetTableClient(ply, "PlayersWearingScramble", false)
         scramble.SetTableClient(ply, "PlayersStateScramble", false)
 
@@ -48,6 +50,19 @@ function scramble.UpdateStateScramble(ply)
         -- TODO : Faire la méthode coté client.
         --toucanlib.SoundToPlayClientSide(ply, "scramble/onprocess.wav", true)
         scramble.SetTableClient(ply, "PlayersStateScramble", true)
+        if (ply.scramble_NVGEnable) then scramble.ScreenFadeNVG(ply) end
+        scramble.UpdateBoolClient(ply, "scramble_NVGEnable", false)
     end
     scramble.UpdateBoolClient(ply, "scramble_State", !ply.scramble_State)
+end
+
+/*
+* Function used for update the state of the nvg effect.
+* @Player ply The player to update the state.
+*/
+function scramble.EnableNVG(ply)
+    if (!IsValid(ply)) then return end
+    ply:EmitSound("scramble/onclick.mp3") -- TODO : Faire un son distinct pour le click des NVG ?
+    scramble.ScreenFadeNVG(ply)
+    scramble.UpdateBoolClient(ply, "scramble_NVGEnable", !ply.scramble_NVGEnable)
 end
