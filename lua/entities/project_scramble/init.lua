@@ -2,7 +2,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel( "models/aegis_scramble/aegis_scanner.mdl" ) -- TODO : Changer le nom du modèle/matériel
+	self:SetModel( "models/scramble/aegis_scanner.mdl" ) -- TODO : Changer le nom du modèle/matériel
 	self:SetModelScale( 1 )
 	self:PhysicsInit( SOLID_VPHYSICS ) 
 	self:SetMoveType(MOVETYPE_VPHYSICS)
@@ -13,8 +13,8 @@ end
 
 function ENT:Use(ply)
 	if (!ply.scramble_Wear) then
-		aegis.UpdateBoolClient(ply, "scramble_Wear", true)
-		aegis.SetTableClient(ply, "PlayersWearingScramble", true)
+		scramble.UpdateBoolClient(ply, "scramble_Wear", true)
+		scramble.SetTableClient(ply, "PlayersWearingScramble", true)
 		ply:EmitSound("scramble/equip.mp3")
 		self:Remove()
 	else

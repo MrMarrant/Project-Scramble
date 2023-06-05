@@ -11,7 +11,7 @@ net.Receive(SCRAMBLE_CONFIG.ScreenFadeNVG, function ( )
     end
 end)
 
-local modelScramble = ClientsideModel( "models/aegis_scanner/aegis_scanner.mdl" )
+local modelScramble = ClientsideModel( "models/scramble/aegis_scanner.mdl" )
 modelScramble:SetNoDraw( true )
 
 -- Hook to manage the model infected scanner generate clientside on playermodel.
