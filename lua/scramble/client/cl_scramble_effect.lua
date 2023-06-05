@@ -30,4 +30,5 @@ hook.Add( "PostPlayerDraw" , "PostPlayerDraw.Scramble_Wear" , function( ply )
 end)
 
 -- TODO : Faire l'effet de vision si possible proche comme dans le film SCP.
+-- TODO :  Effet Vsison nocturne
 -- TODO : Trouver un moyen de cacher le visage de SCP 096.
