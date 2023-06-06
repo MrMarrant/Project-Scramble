@@ -48,7 +48,7 @@ function scramble.UpdateStateScramble(ply)
     else
         ply:StopSound( "scramble/desactivate.mp3" )
         ply:EmitSound("scramble/activate.mp3")
-        scralbke.SoundToPlayClientSide(ply, "scramble/onprocess.wav", true)
+        scramble.SoundToPlayClientSide(ply, "scramble/onprocess.wav", true)
         scramble.SetTableClient(ply, "PlayersStateScramble", true)
         if (ply.scramble_NVGEnable) then 
             scramble.ScreenFadeNVG(ply, true)

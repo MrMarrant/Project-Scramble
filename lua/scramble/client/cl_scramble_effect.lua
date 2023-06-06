@@ -45,7 +45,7 @@ end)
 hook.Add("PostDrawHUD", "PostDrawHUD.Scramble_NVGMaterial", function()
     local ply = LocalPlayer()
     if (ply.scramble_NVGEnable and ply.scramble_State) then
-        DrawMaterialOverlay("scramble/nvg/nvg_filter.png", 0)
+        DrawMaterialOverlay("scramble/nvg/nvg_overlay.png", 0)
     end
 end )
 
