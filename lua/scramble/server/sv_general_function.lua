@@ -52,6 +52,18 @@ function scramble.GetTableClient(ply, var, tableToGet)
     end
 end
 
+/*
+* Allows to take a sound only on the client side of a player, so only he will hear it.
+* @Player ply The player who must hear the sound.
+* @string path File route.
+*/
+function scramble.SoundToPlayClientSide(ply, soundToPlay, isLoop)
+    net.Start(SCRAMBLE_CONFIG.SoundToPlayClientSide)
+        net.WriteString(soundToPlay)
+        net.WriteBool(isLoop)
+    net.Send(ply)
+end
+
 -- Impossible to pass net messages on the client side with the other events, so I end up doing this, no judgment please.
 hook.Add( "PlayerInitialSpawn", "PlayerInitialSpawn.LoadTableScramble", function(ply)
     scramble.GetTableClient(ply, "PlayersWearingScramble", SCRAMBLE_CONFIG.PlayersWearingScramble)

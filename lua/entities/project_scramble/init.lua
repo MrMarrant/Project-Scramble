@@ -2,7 +2,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel( "models/scramble/aegis_scanner.mdl" ) -- TODO : Changer le nom du modèle/matériel
+	self:SetModel( "models/scramble/scramble.mdl" )
 	self:SetModelScale( 1 )
 	self:PhysicsInit( SOLID_VPHYSICS ) 
 	self:SetMoveType(MOVETYPE_VPHYSICS)

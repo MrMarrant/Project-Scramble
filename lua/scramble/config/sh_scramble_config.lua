@@ -1,6 +1,10 @@
 SCRAMBLE_CONFIG.UpdateBoolClient = "SCRAMBLE_CONFIG.UpdateBoolClient"
 SCRAMBLE_CONFIG.SetTableClient = "SCRAMBLE_CONFIG.SetTableClient"
 SCRAMBLE_CONFIG.ScreenFadeNVG = "SCRAMBLE_CONFIG.ScreenFadeNVG"
+SCRAMBLE_CONFIG.CTSUpdateState = "SCRAMBLE_CONFIG.CTSUpdateState"
+SCRAMBLE_CONFIG.CTSUpdateNVG = "SCRAMBLE_CONFIG.CTSUpdateNVG"
+SCRAMBLE_CONFIG.CTSUpdateDrop= "SCRAMBLE_CONFIG.CTSUpdateDrop"
+SCRAMBLE_CONFIG.SoundToPlayClientSide = "SCRAMBLE_CONFIG.SoundToPlayClientSide"
 
 -- Class, SWEP and job that are affected by the censor filter of the scramble.
 SCRAMBLE_CONFIG.ClassEntities = {}
