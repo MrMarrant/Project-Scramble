@@ -4,5 +4,3 @@ if SERVER then return end
 SCRAMBLE_CONFIG.ClassEntities = {}
 SCRAMBLE_CONFIG.ClassSwep = {}
 SCRAMBLE_CONFIG.JobName = {}
-
-scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."client/")
