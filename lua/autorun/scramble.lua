@@ -6,7 +6,8 @@ SCRAMBLE_CONFIG = {}
 SCRAMBLE_LANG = {}
 -- RootFolder path
 SCRAMBLE_CONFIG.RootFolder = "scramble/"
-CreateConVar( "Scramble_Percent", 95, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
+-- SCRAMBLE_CONFIG.
+CreateConVar( "Scramble_Percent", 5, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
 
 /*
 * Returns the element to be translated according to the server language.
@@ -57,7 +58,7 @@ if (SERVER) then
 end
 
 print("Project SCRAMBLE Loading . . .")
---scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."language/")
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sh_scramble_config.lua", true)
+scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sv_scramble_config.lua", true)
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/cl_scramble_config.lua", true)
 print("Project SCRAMBLE Loaded!")

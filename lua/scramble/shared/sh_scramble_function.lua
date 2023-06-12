@@ -1,19 +1,8 @@
 /*
-* Allows to return the data of a file.
-* @string path File path.
-*/
-function scramble.GetDataFromFile(path)
-    local fileFind = file.Read(path) or ""
-    local dataFind = util.JSONToTable(fileFind) or {}
-    return dataFind
-end
-
-/*
 * Return true if the entity will be detected SCP 096.
 */
 function scramble.IsDetectedBySCP096()
-    local data = scramble.GetDataFromFile(SCP_313_CONFIG.PathPercentEffect)
-    local percent = data.PercentEffect
+    local percent = GetConvar("Scramble_Percent"):GetFloat()
     assert(percent >= 0 and percent <= 100)
     return percent >= math.Rand(1, 100)
 end
