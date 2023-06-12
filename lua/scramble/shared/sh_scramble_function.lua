@@ -1,4 +1,24 @@
 /*
+* Allows to return the data of a file.
+* @string path File path.
+*/
+function scramble.GetDataFromFile(path)
+    local fileFind = file.Read(path) or ""
+    local dataFind = util.JSONToTable(fileFind) or {}
+    return dataFind
+end
+
+/*
+* Return true if the entity will be detected SCP 096.
+*/
+function scramble.IsDetectedBySCP096()
+    local data = scramble.GetDataFromFile(SCP_313_CONFIG.PathPercentEffect)
+    local percent = data.PercentEffect
+    assert(percent >= 0 and percent <= 100)
+    return percent >= math.Rand(1, 100)
+end
+
+/*
 * Returns the registered model if it exists corresponding to the player's job, otherwise returns the default model.
 * @Player ply The player owner of the weapon.
 * @number range The Range to check in cone.

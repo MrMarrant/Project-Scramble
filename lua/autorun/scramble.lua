@@ -6,6 +6,7 @@ SCRAMBLE_CONFIG = {}
 SCRAMBLE_LANG = {}
 -- RootFolder path
 SCRAMBLE_CONFIG.RootFolder = "scramble/"
+CreateConVar( "Scramble_Percent", 95, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
 
 /*
 * Returns the element to be translated according to the server language.
@@ -37,6 +38,22 @@ function scramble.LoadDirectory(pathFolder, isFile)
             LoadDirectory(pathFolder..value)
         end
     end
+end
+
+-- DIRECTORY DATA FOLDER
+if not file.Exists("data_scramble", "DATA") then
+    file.CreateDir("data_scramble")
+end
+
+if (SERVER) then
+    if not file.Exists(SCP_313_CONFIG.PathPercentEffect, "DATA") then
+        local SERVER_VALUES = {}
+        SERVER_VALUES.PercentEffect = 1.5
+        file.Write(SCP_313_CONFIG.PathPercentEffect, util.TableToJSON(SERVER_VALUES, true))
+    end
+
+    local data = SCP_313.GetDataFromFile(SCP_313_CONFIG.PathPercentEffect)
+    SCP_313_CONFIG.PercentEffect = data.PercentEffect
 end
 
 print("Project SCRAMBLE Loading . . .")

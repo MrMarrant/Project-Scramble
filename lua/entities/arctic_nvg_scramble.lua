@@ -23,5 +23,4 @@ function ENT:Use(activator, ent, usetype, val)
 end
 
 -- TODO : Icone s'affiche pas, aucune idée pk
--- TODO : Effet de flou sur SCP 096
 -- TODO : hook.Add( "vkxscp096:should_trigger", "Some unique name", function(target, ply) end) (target : c'est le joueur qui regarde 096)
