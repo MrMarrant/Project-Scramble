@@ -88,7 +88,56 @@ if SERVER then return end
 --     end
 -- end)
 
-hook.Add( "Think" , "Think.Scramble_CheckEntSound" , function( )
+local function IsInFieldOfView(ply, ent)
+    local plyAngles = ply:EyeAngles()
+    local viewVector = plyAngles:Forward()
+
+    local entPos = ent:GetPos()
+    local entDir = (entPos - ply:EyePos()):GetNormalized()
+    
+    return viewVector:Dot(entDir) >= math.cos(math.rad(75)) -- Angle de vue de 75 degrés
+end
+
+local function IsVisible(ply, ent)
+    local tr = util.TraceLine({
+        start = ply:EyePos(),
+        endpos = ent:GetPos(),
+        mask = MASK_SOLID_BRUSHONLY -- Vérifie uniquement les collisions avec les brosses solides (murs)
+    })
+
+    return not tr.Hit
+end
+
+local function GetVisibleEntities()
+    local ply = LocalPlayer()
+
+    local visibleEntities = {}
+    for _, ent in pairs(ents.GetAll()) do
+        if ent != ply and IsValid(ent) and ent:IsPlayer() then -- Vous pouvez modifier cette condition selon vos besoins
+            if IsInFieldOfView(ply, ent) and IsVisible(ply, ent) then
+                table.insert(visibleEntities, ent)
+            end
+        end
+    end
+
+    return visibleEntities
+end
+
+-- Exemple d'utilisation
+hook.Add("Think", "Think.Scramble_CheckEntSound", function()
+    local visibleEntities = GetVisibleEntities()
+
+    if ((#visibleEntities >= 1)) then
+        if (!ply.Scramble_LoopingSound) then
+            ply.Scramble_LoopingSound = ply:StartLoopingSound( "scramble/detect_scp096.wav" )
+        end
+    elseif (ply.Scramble_LoopingSound) then
+        ply:StopSound("scramble/detect_scp096.wav")
+        ply.Scramble_LoopingSound = nil
+    end
+end)
+
+--[[ hook.Add( "Think" , "Think.Scramble_CheckEntSound" , function( )
     local ply = LocalPlayer()
     local PlayerFounded, EntsFounded = scramble.GetPlayersInCone(ply, 1000)
     print(#PlayerFounded)
@@ -100,7 +149,7 @@ hook.Add( "Think" , "Think.Scramble_CheckEntSound" , function( )
         ply:StopSound("scramble/detect_scp096.wav")
         ply.Scramble_LoopingSound = nil
     end
-end)
+end) ]]
 
 local ModelGlitch1 = ClientsideModel( "models/hunter/blocks/cube05x05x05.mdl" )
 ModelGlitch1:SetMaterial("models/wireframe")
