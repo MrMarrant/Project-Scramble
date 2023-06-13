@@ -15,3 +15,9 @@ SCRAMBLE_CONFIG.ModelName["models/shaklin/scp/096/scp_096.mdl"] = {
     y = 2,
     z = 0
 }
+SCRAMBLE_CONFIG.ModelName["models/player/scp096.mdl"] = {
+    head = "ValveBiped.Bip01_Head1",
+    x = 0,
+    y = 0,
+    z = 0
+}
