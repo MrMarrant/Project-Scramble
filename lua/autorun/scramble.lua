@@ -10,17 +10,6 @@ SCRAMBLE_CONFIG.RootFolder = "scramble/"
 CreateConVar( "Scramble_Percent", 5, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
 
 /*
-* Returns the element to be translated according to the server language.
-* @table langData Array containing all translations.
-* @string name Element to translate.
-*/
-function scramble.TranslateLanguage(langData, name)
-    local CurrentLang = GetConVar("gmod_language"):GetString()
-    if not CurrentLang then return "Error Text" end
-    return string.format( langData[CurrentLang][ name ] or "Not Found" )
-end
-
-/*
 * Allows you to load all the files in a folder.
 * @string path of the folder to load.
 * @bool isFile if the path is a file and not a folder.
