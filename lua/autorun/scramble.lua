@@ -7,7 +7,7 @@ SCRAMBLE_LANG = {}
 -- RootFolder path
 SCRAMBLE_CONFIG.RootFolder = "scramble/"
 -- SCRAMBLE_CONFIG.
-SCRAMBLE_CONFIG.ScramblePercent = CreateConVar( "Scramble_Percent", 1, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
+SCRAMBLE_CONFIG.ScramblePercent = CreateConVar( "Scramble_Percent", 0, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
 
 /*
 * Allows you to load all the files in a folder.
