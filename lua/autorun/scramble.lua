@@ -6,8 +6,20 @@ SCRAMBLE_CONFIG = {}
 SCRAMBLE_LANG = {}
 -- RootFolder path
 SCRAMBLE_CONFIG.RootFolder = "scramble/"
+-- Config File path
+SCRAMBLE_CONFIG.PathConfigFile = "data_scramble/scramble_config.json"
 -- SCRAMBLE_CONFIG.
 SCRAMBLE_CONFIG.ScramblePercent = CreateConVar( "Scramble_Percent", 0, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
+
+/*
+* Allows to return the data of a file.
+* @string path File path.
+*/
+function scramble.GetDataFromFile(path)
+    local fileFind = file.Read(path) or ""
+    local dataFind = util.JSONToTable(fileFind) or {}
+    return dataFind
+end
 
 /*
 * Allows you to load all the files in a folder.
@@ -30,24 +42,7 @@ function scramble.LoadDirectory(pathFolder, isFile)
     end
 end
 
--- DIRECTORY DATA FOLDER
-if not file.Exists("data_scramble", "DATA") then
-    file.CreateDir("data_scramble")
-end
-
-if (SERVER) then
-    if not file.Exists(SCP_313_CONFIG.PathPercentEffect, "DATA") then
-        local SERVER_VALUES = {}
-        SERVER_VALUES.PercentEffect = 1.5
-        file.Write(SCP_313_CONFIG.PathPercentEffect, util.TableToJSON(SERVER_VALUES, true))
-    end
-
-    local data = SCP_313.GetDataFromFile(SCP_313_CONFIG.PathPercentEffect)
-    SCP_313_CONFIG.PercentEffect = data.PercentEffect
-end
-
 print("Project SCRAMBLE Loading . . .")
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sh_scramble_config.lua", true)
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sv_scramble_config.lua", true)
-scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/cl_scramble_config.lua", true)
 print("Project SCRAMBLE Loaded!")
