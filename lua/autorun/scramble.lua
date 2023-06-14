@@ -6,16 +6,19 @@ SCRAMBLE_CONFIG = {}
 SCRAMBLE_LANG = {}
 -- RootFolder path
 SCRAMBLE_CONFIG.RootFolder = "scramble/"
+-- Config File path
+SCRAMBLE_CONFIG.PathConfigFile = "data_scramble/scramble_config.json"
+-- SCRAMBLE_CONFIG.
+SCRAMBLE_CONFIG.ScramblePercent = CreateConVar( "Scramble_Percent", 0, FCVAR_PROTECTED, "Percent Detect By SCP 096", 0, 100 )
 
 /*
-* Returns the element to be translated according to the server language.
-* @table langData Array containing all translations.
-* @string name Element to translate.
+* Allows to return the data of a file.
+* @string path File path.
 */
-function scramble.TranslateLanguage(langData, name)
-    local CurrentLang = GetConVar("gmod_language"):GetString()
-    if not CurrentLang then return "Error Text" end
-    return string.format( langData[CurrentLang][ name ] or "Not Found" )
+function scramble.GetDataFromFile(path)
+    local fileFind = file.Read(path) or ""
+    local dataFind = util.JSONToTable(fileFind) or {}
+    return dataFind
 end
 
 /*
@@ -40,8 +43,6 @@ function scramble.LoadDirectory(pathFolder, isFile)
 end
 
 print("Project SCRAMBLE Loading . . .")
-scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."language/")
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sh_scramble_config.lua", true)
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sv_scramble_config.lua", true)
-scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/cl_scramble_config.lua", true)
 print("Project SCRAMBLE Loaded!")

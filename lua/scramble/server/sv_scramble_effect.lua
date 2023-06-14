@@ -1,13 +1,34 @@
 if CLIENT then return end
 
 /*
-* Function used for make a fade effect on screen.
-* @Player ply The player to update the state.
-* @bool fade To manage wich fade to do on screen.
+* Function that update the state server/client side of the artic NVG
+* @Player ply The ent to apply the censor effect
+* @number typeNVG Indicate wich type is the NVG.
+* @bool isEnabled Indictate if the NVG are Enabled or not.
 */
-function scramble.ScreenFadeNVG(ply, fade)
-    if (!IsValid(ply)) then return end
-    net.Start(SCRAMBLE_CONFIG.ScreenFadeNVG)
-        net.WriteBool( fade )
+function scramble.SetParamArtic(ply, typeNVG, isEnabled)
+    ply:SetNWInt("nvg", typeNVG)
+    ply:SetNWBool("nvg_on", isEnabled)
+    net.Start(SCRAMBLE_CONFIG.ScrambleUpdateParamArctic, true)
+        net.WriteBool(isEnabled)
+        net.WriteUInt( typeNVG, 5 )
     net.Send(ply)
 end
+
+-- Hook for some swep to be detected by SCP 096
+hook.Add( "vkxscp096:should_trigger", "Scramble_Detect_SCP096", function(target, ply)
+    if (target:GetNWInt("nvg", 0) == 7 and target:GetNWBool("nvg_on", false)) then
+        if (!scramble.IsDetectedBySCP096()) then
+            return false
+        end
+    end
+end)
+
+-- Hook for update the state of the artic NVG
+hook.Add( "PlayerDeath", "PlayerDeath.Scramble_Artic_Update", function( victim, inflictor, attacker )
+    scramble.SetParamArtic(victim, 0, false)
+end )
+
+hook.Add( "PlayerChangedTeam", "PlayerChangedTeam.Scramble_Artic_Update", function( ply )
+    scramble.SetParamArtic(ply, 0, false)
+end )
