@@ -30,6 +30,12 @@ SCRAMBLE_CONFIG.ModelName["models/player/scp096.mdl"] = {
     y = 0,
     z = 0
 }
+SCRAMBLE_CONFIG.ModelName["models/scp_096/scp_096_final.mdl"] = {
+    head = "head",
+    x = 0,
+    y = 0,
+    z = 1
+}
 
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."server/")
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."client/")
