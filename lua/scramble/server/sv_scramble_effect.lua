@@ -15,20 +15,27 @@ function scramble.SetParamArtic(ply, typeNVG, isEnabled)
     net.Send(ply)
 end
 
--- Hook for some swep to be detected by SCP 096
-hook.Add( "vkxscp096:should_trigger", "Scramble_Detect_SCP096", function(target, ply)
-    if (target:GetNWInt("nvg", 0) == 7 and target:GetNWBool("nvg_on", false)) then
-        if (!scramble.IsDetectedBySCP096()) then
-            return false
-        end
+/*
+* Function used for drop NVG drom a player.
+* @Player ply The player who wants to drop the NVG.
+*/
+function scramble.DropScramble(ply)
+    if (ply:GetNWInt("nvg", 0) == 0 or !ply:GetNWInt("nvg", 0)) then return end
+
+    local TypeNVG = (ArcticNVGs[ply:GetNWInt("nvg", 0)] or {}).Entity
+
+    if TypeNVG then
+        local NVG = ents.Create(TypeNVG)
+        NVG:SetPos(ply:EyePos())
+        NVG:SetAngles(ply:EyeAngles())
+        NVG:SetOwner(ply)
+        NVG:Spawn()
+        scramble.SetParamArtic(ply, 0, false)
     end
+end
+
+-- Net Message used when a player ask for drop NVG.
+net.Receive(SCRAMBLE_CONFIG.CTSUpdateDrop, function (len, ply )
+    if ( !IsValid( ply ) ) then return end
+    scramble.DropScramble(ply)
 end)
-
--- Hook for update the state of the artic NVG
-hook.Add( "PlayerDeath", "PlayerDeath.Scramble_Artic_Update", function( victim, inflictor, attacker )
-    scramble.SetParamArtic(victim, 0, false)
-end )
-
-hook.Add( "PlayerChangedTeam", "PlayerChangedTeam.Scramble_Artic_Update", function( ply )
-    scramble.SetParamArtic(ply, 0, false)
-end )

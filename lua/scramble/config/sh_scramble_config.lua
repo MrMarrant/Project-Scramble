@@ -1,4 +1,5 @@
 SCRAMBLE_CONFIG.ScrambleUpdateParamArctic = "SCRAMBLE_CONFIG.ScrambleUpdateParamArctic"
+SCRAMBLE_CONFIG.CTSUpdateDrop = "SCRAMBLE_CONFIG.CTSUpdateDrop"
 
 -- DIRECTORY DATA FOLDER
 if not file.Exists("data_scramble", "DATA") then

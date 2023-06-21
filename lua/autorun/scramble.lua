@@ -45,4 +45,5 @@ end
 print("Project SCRAMBLE Loading . . .")
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sh_scramble_config.lua", true)
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/sv_scramble_config.lua", true)
+scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."config/cl_scramble_config.lua", true)
 print("Project SCRAMBLE Loaded!")
