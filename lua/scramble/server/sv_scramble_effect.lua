@@ -22,7 +22,8 @@ end
 function scramble.DropScramble(ply)
     if (ply:GetNWInt("nvg", 0) == 0 or !ply:GetNWInt("nvg", 0)) then return end
 
-    local TypeNVG = (ArcticNVGs[ply:GetNWInt("nvg", 0)] or {}).Entity
+    local DataNVG = ArcticNVGs[ply:GetNWInt("nvg", 0)] or {}
+    local TypeNVG = DataNVG.Entity
 
     if TypeNVG then
         local NVG = ents.Create(TypeNVG)
@@ -30,6 +31,9 @@ function scramble.DropScramble(ply)
         NVG:SetAngles(ply:EyeAngles())
         NVG:SetOwner(ply)
         NVG:Spawn()
+        if (ply:GetNWBool("nvg_on", false)) then
+            ply:EmitSound(DataNVG.UnequipSound or "arctic_nvgs/nvg_off_1.wav")
+        end
         scramble.SetParamArtic(ply, 0, false)
     end
 end

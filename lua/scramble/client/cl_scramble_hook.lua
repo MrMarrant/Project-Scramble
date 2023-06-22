@@ -1,5 +1,7 @@
 if SERVER then return end
 
+local NextActionKey = CurTime()
+
 -- For manage action player clientside if they try to call action on scramble.
 hook.Add( "PlayerButtonDown", "PlayerButtonDown.Scramble_BindKey", function( ply, button )
     local KeyDrop = GetConVar( "bindkey_drop_scramble" ):GetString()
