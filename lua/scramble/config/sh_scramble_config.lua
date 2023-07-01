@@ -37,6 +37,20 @@ SCRAMBLE_CONFIG.ModelName["models/scp_096/scp_096_final.mdl"] = {
     y = 0,
     z = 1
 }
+SCRAMBLE_CONFIG.ModelName["models/cpthazama/scp/096.mdl"] = {
+    head = "head",
+    x = 0,
+    y = 2.5,
+    z = 0,
+    scale = 0.7
+}
+SCRAMBLE_CONFIG.ModelName["models/cpthazama/scp/096_old.mdl"] = {
+    head = "Bone_077",
+    x = 0,
+    y = 0,
+    z = 3,
+    scale = 0.7
+}
 
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."server/")
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."client/")

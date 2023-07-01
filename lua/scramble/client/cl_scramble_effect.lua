@@ -2,12 +2,12 @@ if SERVER then return end
 
 local ModelCensorBlack = ClientsideModel( "models/hunter/blocks/cube05x05x05.mdl" )
 ModelCensorBlack:SetMaterial("models/wireframe")
-ModelCensorBlack:SetModelScale(0.6)
+ModelCensorBlack:SetModelScale(0.7)
 ModelCensorBlack:SetNoDraw( true )
 
 local ModelCensorGlitch = ClientsideModel( "models/hunter/blocks/cube05x05x05.mdl" )
 ModelCensorGlitch:SetMaterial("models/rendertarget")
-ModelCensorGlitch:SetModelScale(0.6)
+ModelCensorGlitch:SetModelScale(0.7)
 ModelCensorGlitch:SetNoDraw( true )
 
 
@@ -93,6 +93,7 @@ local function SetCensorEffect(ent, params)
 
     ModelCensorGlitch:SetPos( newpos )
     ModelCensorGlitch:SetAngles( AngRandom )
+    if (params.scale) then ModelCensorGlitch:SetModelScale(params.scale) end
     ModelCensorGlitch:SetupBones()
     ModelCensorGlitch:DrawModel()
 
@@ -101,6 +102,7 @@ local function SetCensorEffect(ent, params)
         AngRandom = Angle(newang.p, newang.y, RandAng.r)
         ModelCensorBlack:SetPos( newpos )
         ModelCensorBlack:SetAngles( AngRandom )
+        if (params.scale) then ModelCensorBlack:SetModelScale(params.scale) end
         ModelCensorBlack:SetupBones()
         ModelCensorBlack:DrawModel()
     end
