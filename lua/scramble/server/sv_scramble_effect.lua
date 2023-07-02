@@ -20,9 +20,11 @@ end
 * @Player ply The player who wants to drop the NVG.
 */
 function scramble.DropScramble(ply)
-    if (ply:GetNWInt("nvg", 0) == 0 or !ply:GetNWInt("nvg", 0)) then return end
+    local NVGId = ply:GetNWInt("nvg", 0)
 
-    local DataNVG = ArcticNVGs[ply:GetNWInt("nvg", 0)] or {}
+    if (NVGId == 0 or !NVGId) then return end
+
+    local DataNVG = ArcticNVGs[NVGId] or {}
     local TypeNVG = DataNVG.Entity
 
     if TypeNVG then

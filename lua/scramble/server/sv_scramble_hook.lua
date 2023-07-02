@@ -2,7 +2,9 @@ if CLIENT then return end
 
 -- Hook from Guth swep to be detected by SCP 096
 hook.Add( "vkxscp096:should_trigger", "Scramble_Detect_SCP096", function(target, ply)
-    if (target:GetNWInt("nvg", 0) == 7 and target:GetNWBool("nvg_on", false)) then
+    local NVGId = target:GetNWInt("nvg", 0)
+
+    if ((NVGId == 7 or NVGId == 8) and target:GetNWBool("nvg_on", false)) then
         if (!scramble.IsDetectedBySCP096()) then
             return false
         end

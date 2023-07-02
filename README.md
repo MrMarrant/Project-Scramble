@@ -67,7 +67,7 @@ Concerning for the others SWEP,
 You just need to set a condition checking whether the player is wearing the SCRAMBLE and whether it's activated, for example :
 [quote]
 function IsSCP096Triggered(ply)
-    if (ply:GetNWInt("nvg", 0) == 7 and ply:GetNWBool("nvg_on", false)) then
+    if ((ply:GetNWInt("nvg", 0) == 7 or ply:GetNWInt("nvg", 0) == 8) and ply:GetNWBool("nvg_on", false)) then
         return true 
     end
     return false

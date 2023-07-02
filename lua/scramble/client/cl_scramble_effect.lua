@@ -113,7 +113,9 @@ end
 --? don't work very well, if PostPlayerDraw for NPC exist, i would have done it another way.
 hook.Add("RenderScreenspaceEffects","RenderScreenspaceEffects.Scramble_Censor",function()
     local ply = LocalPlayer()
-    if (ply:GetNWInt("nvg", 0) == 7 and ply:GetNWBool("nvg_on", false)) then
+    local NVGId = ply:GetNWInt("nvg", 0)
+
+    if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
         local playerEntities, npcEntities = GetVisibleEntities()
         if (#npcEntities >= 1) then
             for key, value in ipairs(npcEntities) do
@@ -129,7 +131,9 @@ end)
 -- For emit the sound effect when a 096 is detected
 hook.Add("Think", "Think.Scramble_CheckEntSound", function()
     local ply = LocalPlayer()
-    if (ply:GetNWInt("nvg", 0) == 7 and ply:GetNWBool("nvg_on", false)) then
+    local NVGId = ply:GetNWInt("nvg", 0)
+
+    if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
         local playerEntities, npcEntities = GetVisibleEntities()
         if ((#playerEntities >= 1 or #npcEntities >= 1)) then
             if (!ply.Scramble_LoopingSound) then
@@ -149,7 +153,9 @@ end)
 -- For Detect Player
 hook.Add( "PostPlayerDraw" , "PostPlayerDraw.Scramble_Censor" , function( ent )
     local ply = LocalPlayer()
-    if (ply:GetNWInt("nvg", 0) == 7 and ply:GetNWBool("nvg_on", false)) then
+    local NVGId = ply:GetNWInt("nvg", 0)
+
+    if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
         if (ent:IsPlayer() and ent != ply and ent:Alive()) then
             local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
             if (ParamsModel) then

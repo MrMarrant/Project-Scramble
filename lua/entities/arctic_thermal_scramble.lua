@@ -1,14 +1,14 @@
 AddCSLuaFile()
 
 ENT.Author = "MrMarrant"
-ENT.PrintName = "Scramble NVG"
+ENT.PrintName = "Scramble Thermal"
 ENT.Spawnable = true
 ENT.Category = "Arctic's Night Vision"
 ENT.Type = "anim"
 ENT.Base = "arctic_nvg_base"
 
-ENT.Model = "models/arctic_nvgs/nvg_gpnvg.mdl"
-ENT.Gives = "nvg_scramble"
+ENT.Model = "models/arctic_nvgs/nvg_t7.mdl"
+ENT.Gives = "nvg_t7_scramble"
 
 function ENT:Use(activator, ent, usetype, val)
     if !IsValid(ent) then return end
