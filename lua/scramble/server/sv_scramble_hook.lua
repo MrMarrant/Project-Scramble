@@ -1,7 +1,20 @@
 if CLIENT then return end
 
+--! Old Hook for the SCP-096 detection
 -- Hook from Guth swep to be detected by SCP 096
-hook.Add( "vkxscp096:should_trigger", "Scramble_Detect_SCP096", function(target, ply)
+hook.Add( "vkxscp096:should_trigger", "vkxscp096_Scramble_Detect_SCP096", function(target, ply)
+    local NVGId = target:GetNWInt("nvg", 0)
+
+    if ((NVGId == 7 or NVGId == 8) and target:GetNWBool("nvg_on", false)) then
+        if (!scramble.IsDetectedBySCP096()) then
+            return false
+        end
+    end
+end)
+
+--? New Hook for the SCP-096 detection
+-- Hook from Guth swep to be detected by SCP 096
+hook.Add( "guthscp096:should_trigger", "guthscp096_Scramble_Detect_SCP096", function(target, ply)
     local NVGId = target:GetNWInt("nvg", 0)
 
     if ((NVGId == 7 or NVGId == 8) and target:GetNWBool("nvg_on", false)) then
