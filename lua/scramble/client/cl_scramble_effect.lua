@@ -49,23 +49,25 @@ local function GetVisibleEntities()
 
     local playerEntities = {}
     local npcEntities = {}
+    local otersEntities = {}
     for _, ent in pairs(ents.GetAll()) do
-        if ent != ply and IsValid(ent) and (ent:IsPlayer() or ent:IsNPC() or ent:IsNextBot()) then -- Vous pouvez modifier cette condition selon vos besoins
+        if ent != ply and IsValid(ent) then -- Vous pouvez modifier cette condition selon vos besoins
             if IsInFieldOfView(ply, ent) and IsVisible(ply, ent) then
                 local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
                 if (ParamsModel) then
                     if (ent:IsPlayer()) then
                         table.insert(playerEntities, ent)
-                    end
-                    if (ent:IsNPC() or ent:IsNextBot()) then
+                    elseif (ent:IsNPC() or ent:IsNextBot()) then
                         table.insert(npcEntities, ent)
+                    else
+                        table.insert(otersEntities, ent)
                     end
                 end
             end
         end
     end
 
-    return playerEntities, npcEntities
+    return playerEntities, npcEntities, otersEntities
 end
 
 /*
@@ -78,18 +80,20 @@ local function SetCensorEffect(ent, params)
     local offsetang = Angle( 0, 90, 90 )
     local boneid = ent:LookupBone( params.head )
 
-    if not boneid then
-        return
-    end
-
-    local matrix = ent:GetBoneMatrix( boneid )
-    if not matrix then
-        return 
-    end
-    
-    local newpos, newang = LocalToWorld( offsetvec, offsetang, matrix:GetTranslation(), matrix:GetAngles() )
+    local newpos = ent:GetPos() + offsetvec
+    local newang = ent:GetAngles()
     local RandAng = AngleRand()
     local AngRandom = Angle(newang.p, RandAng.y, RandAng.r)
+
+    if boneid then
+        local matrix = ent:GetBoneMatrix( boneid )
+        if not matrix then
+            return 
+        end
+        
+        newpos, newang = LocalToWorld( offsetvec, offsetang, matrix:GetTranslation(), matrix:GetAngles() )
+        local AngRandom = Angle(newang.p, RandAng.y, RandAng.r)
+    end
 
     ModelCensorGlitch:SetPos( newpos )
     ModelCensorGlitch:SetAngles( AngRandom )
@@ -116,9 +120,17 @@ hook.Add("RenderScreenspaceEffects","RenderScreenspaceEffects.Scramble_Censor",f
     local NVGId = ply:GetNWInt("nvg", 0)
 
     if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
-        local playerEntities, npcEntities = GetVisibleEntities()
+        local playerEntities, npcEntities, otersEntities = GetVisibleEntities()
         if (#npcEntities >= 1) then
             for key, value in ipairs(npcEntities) do
+                local ParamsModel = SCRAMBLE_CONFIG.ModelName[value:GetModel()]
+                cam.Start3D()
+                    SetCensorEffect(value, ParamsModel)
+                cam.End3D()
+            end
+        end
+        if (#otersEntities >= 1) then
+            for key, value in ipairs(otersEntities) do
                 local ParamsModel = SCRAMBLE_CONFIG.ModelName[value:GetModel()]
                 cam.Start3D()
                     SetCensorEffect(value, ParamsModel)
@@ -134,8 +146,8 @@ hook.Add("Think", "Think.Scramble_CheckEntSound", function()
     local NVGId = ply:GetNWInt("nvg", 0)
 
     if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
-        local playerEntities, npcEntities = GetVisibleEntities()
-        if ((#playerEntities >= 1 or #npcEntities >= 1)) then
+        local playerEntities, npcEntities, otersEntities = GetVisibleEntities()
+        if ((#playerEntities >= 1 or #npcEntities >= 1 or #otersEntities >= 1)) then
             if (!ply.Scramble_LoopingSound) then
                 ply.Scramble_LoopingSound = ply:StartLoopingSound( "scramble/detect_scp096.wav" )
             end
