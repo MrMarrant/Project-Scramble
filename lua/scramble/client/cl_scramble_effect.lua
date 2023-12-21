@@ -182,6 +182,9 @@ net.Receive(SCRAMBLE_CONFIG.ScrambleUpdateParamArctic, function ( )
     local isEnabled = net.ReadBool()
     local typeNVG = net.ReadUInt( 5 )
     local ply = LocalPlayer()
+
+    if (not IsValid(ply)) then return end
+
     ply:SetNWInt("nvg", typeNVG)
     ply:SetNWBool("nvg_on", isEnabled)
 end)
