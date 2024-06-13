@@ -42,7 +42,7 @@ local function IsVisible(ply, ent)
 end
 
 /*
-* Function that return 2 table with the players and the NPC/NextBot detected with a trace.
+* Function that return 2 table with the players and the NPC/NextBot/Props detected with a trace.
 */
 local function GetVisibleEntities()
     local ply = LocalPlayer()
@@ -51,7 +51,7 @@ local function GetVisibleEntities()
     local npcEntities = {}
     local otersEntities = {}
     for _, ent in pairs(ents.GetAll()) do
-        if ent != ply and IsValid(ent) then -- Vous pouvez modifier cette condition selon vos besoins
+        if ent != ply and IsValid(ent) then
             if IsInFieldOfView(ply, ent) and IsVisible(ply, ent) then
                 local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
                 if (ParamsModel) then
@@ -112,7 +112,7 @@ local function SetCensorEffect(ent, params)
     end
 end
 
--- For NPC & Nexbot
+-- For NPC, Props & Nexbot
 --? I can put the player version into it aswell, but it is less precise because in certain angle with walls, the censor effect 
 --? don't work very well, if PostPlayerDraw for NPC exist, i would have done it another way.
 hook.Add("RenderScreenspaceEffects","RenderScreenspaceEffects.Scramble_Censor",function()
@@ -170,7 +170,7 @@ hook.Add( "PostPlayerDraw" , "PostPlayerDraw.Scramble_Censor" , function( ent )
     if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
         if (ent:IsPlayer() and ent != ply and ent:Alive()) then
             local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
-            if (ParamsModel) then
+            if (IsValid(ParamsModel)) then
                 SetCensorEffect(ent, ParamsModel)
             end
         end
