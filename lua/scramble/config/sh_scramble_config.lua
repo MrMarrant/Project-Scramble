@@ -80,6 +80,6 @@ SCRAMBLE_CONFIG.ModelName["models/painkiller_76/sf2/new096/096b.mdl"] = {
     scale = 0.9
 }
 
-scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."server/")
-scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."client/")
-scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder.."shared/")
+scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder .. "server/")
+scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder .. "client/")
+scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder .. "shared/")

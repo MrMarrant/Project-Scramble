@@ -22,7 +22,7 @@ local function IsInFieldOfView(ply, ent)
 
     local entPos = ent:GetPos()
     local entDir = (entPos - ply:EyePos()):GetNormalized()
-    
+
     return viewVector:Dot(entDir) >= math.cos(math.rad(75)) -- Angle de vue de 75 degrés
 end
 
@@ -52,16 +52,14 @@ local function GetVisibleEntities()
     local otersEntities = {}
     for _, ent in pairs(ents.GetAll()) do
         if ent != ply and IsValid(ent) then
-            if IsInFieldOfView(ply, ent) and IsVisible(ply, ent) then
-                local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
-                if (ParamsModel) then
-                    if (ent:IsPlayer()) then
-                        table.insert(playerEntities, ent)
-                    elseif (ent:IsNPC() or ent:IsNextBot()) then
-                        table.insert(npcEntities, ent)
-                    else
-                        table.insert(otersEntities, ent)
-                    end
+            local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
+            if IsInFieldOfView(ply, ent) and IsVisible(ply, ent) and istable(ParamsModel) then
+                if (ent:IsPlayer()) then
+                    table.insert(playerEntities, ent)
+                elseif (ent:IsNPC() or ent:IsNextBot()) then
+                    table.insert(npcEntities, ent)
+                else
+                    table.insert(otersEntities, ent)
                 end
             end
         end
@@ -88,9 +86,9 @@ local function SetCensorEffect(ent, params)
     if boneid then
         local matrix = ent:GetBoneMatrix( boneid )
         if not matrix then
-            return 
+            return
         end
-        
+
         newpos, newang = LocalToWorld( offsetvec, offsetang, matrix:GetTranslation(), matrix:GetAngles() )
         local AngRandom = Angle(newang.p, RandAng.y, RandAng.r)
     end
@@ -147,8 +145,8 @@ hook.Add("Think", "Think.Scramble_CheckEntSound", function()
 
     if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
         local playerEntities, npcEntities, otersEntities = GetVisibleEntities()
-        if ((#playerEntities >= 1 or #npcEntities >= 1 or #otersEntities >= 1)) then
-            if (!ply.Scramble_LoopingSound) then
+        if (#playerEntities >= 1 or #npcEntities >= 1 or #otersEntities >= 1) then
+            if (not ply.Scramble_LoopingSound) then
                 ply.Scramble_LoopingSound = ply:StartLoopingSound( "scramble/detect_scp096.wav" )
             end
         elseif (ply.Scramble_LoopingSound) then
@@ -168,11 +166,9 @@ hook.Add( "PostPlayerDraw" , "PostPlayerDraw.Scramble_Censor" , function( ent )
     local NVGId = ply:GetNWInt("nvg", 0)
 
     if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
-        if (ent:IsPlayer() and ent != ply and ent:Alive()) then
-            local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
-            if (IsValid(ParamsModel)) then
-                SetCensorEffect(ent, ParamsModel)
-            end
+        local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
+        if (ent:IsPlayer() and ent != ply and ent:Alive() and istable(ParamsModel)) then
+            SetCensorEffect(ent, ParamsModel)
         end
     end
 end)
