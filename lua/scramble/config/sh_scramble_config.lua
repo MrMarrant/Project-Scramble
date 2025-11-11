@@ -79,6 +79,13 @@ SCRAMBLE_CONFIG.ModelName["models/painkiller_76/sf2/new096/096b.mdl"] = {
     z = 0,
     scale = 0.9
 }
+SCRAMBLE_CONFIG.ModelName["models/washton/scp096/scp096unity.mdl"] = {
+    head = "Jaw",
+    x = 0,
+    y = 0,
+    z = 0,
+    scale = 0.5
+}
 
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder .. "server/")
 scramble.LoadDirectory(SCRAMBLE_CONFIG.RootFolder .. "client/")

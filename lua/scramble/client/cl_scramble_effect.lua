@@ -49,23 +49,23 @@ local function GetVisibleEntities()
 
     local playerEntities = {}
     local npcEntities = {}
-    local otersEntities = {}
+    local othersEntities = {}
     for _, ent in pairs(ents.GetAll()) do
         if ent != ply and IsValid(ent) then
-            local ParamsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
-            if IsInFieldOfView(ply, ent) and IsVisible(ply, ent) and istable(ParamsModel) then
+            local paramsModel = SCRAMBLE_CONFIG.ModelName[ent:GetModel()]
+            if IsInFieldOfView(ply, ent) and IsVisible(ply, ent) and istable(paramsModel) then
                 if (ent:IsPlayer()) then
                     table.insert(playerEntities, ent)
                 elseif (ent:IsNPC() or ent:IsNextBot()) then
                     table.insert(npcEntities, ent)
                 else
-                    table.insert(otersEntities, ent)
+                    table.insert(othersEntities, ent)
                 end
             end
         end
     end
 
-    return playerEntities, npcEntities, otersEntities
+    return playerEntities, npcEntities, othersEntities
 end
 
 /*
@@ -118,7 +118,7 @@ hook.Add("RenderScreenspaceEffects","RenderScreenspaceEffects.Scramble_Censor",f
     local NVGId = ply:GetNWInt("nvg", 0)
 
     if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
-        local playerEntities, npcEntities, otersEntities = GetVisibleEntities()
+        local playerEntities, npcEntities, othersEntities = GetVisibleEntities()
         if (#npcEntities >= 1) then
             for key, value in ipairs(npcEntities) do
                 local ParamsModel = SCRAMBLE_CONFIG.ModelName[value:GetModel()]
@@ -127,8 +127,8 @@ hook.Add("RenderScreenspaceEffects","RenderScreenspaceEffects.Scramble_Censor",f
                 cam.End3D()
             end
         end
-        if (#otersEntities >= 1) then
-            for key, value in ipairs(otersEntities) do
+        if (#othersEntities >= 1) then
+            for key, value in ipairs(othersEntities) do
                 local ParamsModel = SCRAMBLE_CONFIG.ModelName[value:GetModel()]
                 cam.Start3D()
                     SetCensorEffect(value, ParamsModel)
@@ -144,8 +144,8 @@ hook.Add("Think", "Think.Scramble_CheckEntSound", function()
     local NVGId = ply:GetNWInt("nvg", 0)
 
     if ((NVGId == 7 or NVGId == 8) and ply:GetNWBool("nvg_on", false)) then
-        local playerEntities, npcEntities, otersEntities = GetVisibleEntities()
-        if (#playerEntities >= 1 or #npcEntities >= 1 or #otersEntities >= 1) then
+        local playerEntities, npcEntities, othersEntities = GetVisibleEntities()
+        if (#playerEntities >= 1 or #npcEntities >= 1 or #othersEntities >= 1) then
             if (not ply.Scramble_LoopingSound) then
                 ply.Scramble_LoopingSound = ply:StartLoopingSound( "scramble/detect_scp096.wav" )
             end
